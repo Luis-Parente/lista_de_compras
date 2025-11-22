@@ -28,5 +28,21 @@ adicionarItem.addEventListener("click", (evento) => {
 
     itemDaLista.appendChild(containerLista);
 
+    const diaDaSemana = new Date().toLocaleDateString("pt-br", {weekday: "long"});
+    const data = new Date().toLocaleDateString("pt-br");
+    const hora = new Date().toLocaleTimeString("pt-br", {
+        hour: "numeric",
+        minute: "numeric",
+    });
+
+    const dataCompleta = `${diaDaSemana} (${data}) às ${hora}`;
+
+    const dataItem = document.createElement("p");
+    dataItem.classList.add("texto-data");
+
+    dataItem.innerText = dataCompleta;
+
+    itemDaLista.appendChild(dataItem);
+
     listaDeCompras.appendChild(itemDaLista);
 });
