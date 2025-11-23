@@ -4,6 +4,10 @@ const adicionarItem = document.getElementById("adicionar-item");
 
 let contador = 0;
 
+const mensagemListaVazia = document.querySelector('.mensagem-lista-vazia');
+
+verificarLista();
+
 adicionarItem.addEventListener("click", (evento) => {
     evento.preventDefault();
     if (inputItem.value === "") {
@@ -23,11 +27,6 @@ adicionarItem.addEventListener("click", (evento) => {
     const nomeItem = document.createElement("p");
     nomeItem.innerText = inputItem.value;
 
-    containerLista.appendChild(inputCheckbox);
-    containerLista.appendChild(nomeItem);
-
-    itemDaLista.appendChild(containerLista);
-
     const diaDaSemana = new Date().toLocaleDateString("pt-br", {weekday: "long"});
     const data = new Date().toLocaleDateString("pt-br");
     const hora = new Date().toLocaleTimeString("pt-br", {
@@ -42,7 +41,32 @@ adicionarItem.addEventListener("click", (evento) => {
 
     dataItem.innerText = dataCompleta;
 
+    inputCheckbox.addEventListener("click", function () {
+        if (inputCheckbox.checked) {
+            nomeItem.style.textDecoration = "line-through";
+        } else {
+            nomeItem.style.textDecoration = "none"
+        }
+    })
+
+    containerLista.appendChild(inputCheckbox);
+    containerLista.appendChild(nomeItem);
+
+    itemDaLista.appendChild(containerLista);
     itemDaLista.appendChild(dataItem);
 
     listaDeCompras.appendChild(itemDaLista);
+
+    verificarLista();
 });
+
+function verificarLista() {
+    const itemDaLista = listaDeCompras.querySelectorAll("li");
+
+    if (itemDaLista.length === 0) {
+        mensagemListaVazia.style.display = "block";
+    }
+    else {
+        mensagemListaVazia.style.display = "none";
+    }
+}
